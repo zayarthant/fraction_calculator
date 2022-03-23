@@ -4,54 +4,33 @@ import 'package:fraction/model/types.enum.dart';
 
 class InputValidator {
   static bool operator(SequenceModel lastSequence) {
-    if (lastSequence.key == Keys.Close || lastSequence.type == Types.NUMBER) {
-      return true;
-    }
-    return false;
-  }
-
-  static bool number(SequenceModel lastSequence, SequenceModel sequence) {
     if (lastSequence.type == Types.NUMBER) {
       return true;
     }
-    if (sequence.key == Keys.Zero) {
+    return false;
+  }
+
+  static bool number(
+      List<SequenceModel> sequencesList, SequenceModel sequence) {
+    if (sequencesList.isEmpty) {
+      if (sequence.key != Keys.Zero) {
+        return true;
+      }
       return false;
     }
-    if (lastSequence.key == Keys.Open || lastSequence.type == Types.OPERATOR || lastSequence.key == Keys.Fraction) {
+    if (sequencesList.last.type == Types.NUMBER) {
+      return true;
+    }
+    if ((sequencesList.last.type == Types.OPERATOR ||
+            sequencesList.last.key == Keys.Fraction) &&
+        sequence.key != Keys.Zero) {
       return true;
     }
     return false;
   }
 
-  static bool parentheses(SequenceModel lastSequence, SequenceModel sequence,
-      int unclose, bool lockParentheses, bool closureDemanded) {
-    if (lockParentheses) {
-      return false;
-    }
-
-    if (sequence.key == Keys.Open) {
-      if (lastSequence.type == Types.OPERATOR ||
-          lastSequence.key == Keys.Open ||
-          lastSequence.type == Types.FRACTION) {
-        return true;
-      }
-    }
-
-    if (!closureDemanded) {
-      return false;
-    }
-
-    if (sequence.key == Keys.Close) {
-      if (lastSequence.key == Keys.Close || lastSequence.type == Types.NUMBER) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  static bool fraction(SequenceModel lastSequence){
-    if(lastSequence.type == Types.NUMBER || lastSequence.key == Keys.Close){
+  static bool fraction(SequenceModel lastSequence, bool lock) {
+    if (lastSequence.type == Types.NUMBER && !lock) {
       return true;
     }
     return false;

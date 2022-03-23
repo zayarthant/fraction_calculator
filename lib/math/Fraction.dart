@@ -74,4 +74,9 @@ class Fraction {
     }
     return f;
   }
+
+  @override
+  String toString() {
+    return ' $numerator/$denominator ';
+  }
 }

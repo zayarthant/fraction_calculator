@@ -1,7 +1,5 @@
 enum Keys {
   Number,
-  Open,
-  Close,
   Division,
   Subtraction,
   Multiplication,
