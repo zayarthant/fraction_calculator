@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fraction/buttonAction.notifier.dart';
 import 'package:fraction/component/answer.component.dart';
 import 'package:fraction/component/bar.component.dart';
 import 'package:fraction/component/display.component.dart';

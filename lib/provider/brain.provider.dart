@@ -226,17 +226,17 @@ class BrainProvider extends ChangeNotifier {
       if (element.key == Keys.Addition) {
         Fraction a = lastResult ?? nextLevel[i - 1].fraction;
         Fraction b = nextLevel[i + 1].fraction;
-        lastResult = a.div(b);
+        lastResult = a.add(b);
       } else if (element.key == Keys.Subtraction) {
         Fraction a = lastResult ?? nextLevel[i - 1].fraction;
         Fraction b = nextLevel[i + 1].fraction;
-        lastResult = a.multi(b);
+        lastResult = a.sub(b);
       }
     }
 
     if (lastResult == null && nextLevel.isNotEmpty) {
       lastResult = nextLevel.first.fraction;
-    }else if(fractions.isNotEmpty){
+    } else if (lastResult == null && fractions.isNotEmpty) {
       lastResult = fractions.first.fraction;
     }
 
@@ -244,7 +244,7 @@ class BrainProvider extends ChangeNotifier {
     print("Final Answer :  " + lastResult.toString());
     // @TEMP
 
-    if(lastResult != null){
+    if (lastResult != null) {
       this._answer = "= " + lastResult.toString();
     }
   }
