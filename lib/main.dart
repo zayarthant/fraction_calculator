@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fraction/component/answer.component.dart';
-import 'package:fraction/component/bar.component.dart';
-import 'package:fraction/component/display.component.dart';
-import 'package:fraction/component/keyboard.component.dart';
+import 'package:fraction/main.screen.dart';
 import 'package:fraction/provider/brain.provider.dart';
 import 'package:provider/provider.dart';
 
@@ -15,32 +12,23 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Fraction Calculator",
-      theme: ThemeData(brightness: Brightness.dark, primaryColor: Colors.white),
-      home: Scaffold(
-        appBar: AppBarComponent(),
-        body: ChangeNotifierProvider(
-          create: (context) => BrainProvider(),
-          child: Container(
-            color: Colors.white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                DisplayComponent(),
-                AnswerComponent(),
-                KeyboardComponent(),
-              ],
-            ),
-          ),
-        ),
-      ),
+    return ChangeNotifierProvider(
+      create: (context) => BrainProvider(),
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: "Fraction Calculator",
+          theme: ThemeData(
+              brightness: Brightness.dark, primaryColor: Colors.white),
+          home: MainScreen()),
     );
   }
 }
